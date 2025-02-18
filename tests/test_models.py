@@ -101,6 +101,12 @@ class TestProductModel(unittest.TestCase):
         self.assertEqual(new_product.available, product.available)
         self.assertEqual(new_product.category, product.category)
 
+    def test_update_product(self):
+        products = Product.all()
+        self.assertEqual(products, [])
+        product = ProductFactory()
+        product.create()
+        self.assertEqual(product.id, 1)
     #
     # ADD YOUR TEST CASES HERE
     #
