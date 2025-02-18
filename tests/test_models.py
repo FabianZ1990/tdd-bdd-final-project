@@ -193,7 +193,7 @@ class TestProductModel(unittest.TestCase):
             "id": None,
             "name": "Red Hat",
             "description": "A red hat",
-            "price": str(7,50),
+            "price": str(7.50),
             "available": True,
             "category": Category.CLOTHS  # convert enum to string
         }
