@@ -181,6 +181,10 @@ class TestProductModel(unittest.TestCase):
         new_product = products[0]
         dict = new_product.serialize()
         self.assertEqual(dict["id"], new_product.id)
-
+        self.assertEqual(dict["name"], new_product.name)
+        self.assertEqual(dict["description"], new_product.description)
+        self.assertEqual(dict["price"], str(new_product.price))
+        self.assertEqual(dict["available"], new_product.available)
+        self.assertEqual(dict["category"], new_product.category)
     # ADD YOUR TEST CASES HERE
     #
