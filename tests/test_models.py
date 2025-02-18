@@ -257,7 +257,7 @@ class TestProductModel(unittest.TestCase):
         products = Product.all()
         self.assertEqual(len(products), 5)
 
-    def find_by_name(self):
+    def test_find_by_name(self):
         products = Product.all()
         self.assertEqual(products, [])
         product = Product(id=None, name="Fedora", description="A red hat", price=12.50, available=True, category=Category.CLOTHS)
