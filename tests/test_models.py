@@ -169,6 +169,18 @@ class TestProductModel(unittest.TestCase):
         self.assertEqual(len(products), 1)
         self.assertEqual(products[0].name, new_product2.name)
 
+    def test_serialize_to_dict(self):
+        products = Product.all()
+        self.assertEqual(products, [])
+        product = ProductFactory()
+        product.id = None
+        product.create()
+        self.assertIsNotNone(product.id)
+        products = Product.all()
+        self.assertEqual(len(products), 1)
+        new_product = products[0]
+        dict = new_product.serialize()
+        self.assertEqual(dict["id"], new_product.id)
 
     # ADD YOUR TEST CASES HERE
     #
