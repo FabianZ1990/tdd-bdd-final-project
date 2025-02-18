@@ -202,4 +202,4 @@ class TestProductModel(unittest.TestCase):
         product.create()
         products = Product.all()
         self.assertEqual(products[0].name , "Red Hat")
-        self.assertEqual(products[0].category.name, Category.CLOTHS)
+        self.assertEqual(products[0].category.name, productDict["category"])
