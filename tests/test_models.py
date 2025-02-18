@@ -133,7 +133,8 @@ class TestProductModel(unittest.TestCase):
         self.assertEqual(new_product.name, product.name)
         product.name = "Testproduct"
         product.id = None
-        product.update()
-        self.assertRaises(DataValidationError)
+        with self.assertRaises(DataValidationError):
+            product.update()
+
     # ADD YOUR TEST CASES HERE
     #
