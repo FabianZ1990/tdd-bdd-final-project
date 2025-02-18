@@ -27,6 +27,9 @@ import os
 import logging
 import unittest
 from decimal import Decimal
+
+from six import assertCountEqual
+
 from service.models import Product, Category, db, DataValidationError
 from service import app
 from tests.factories import ProductFactory
@@ -254,3 +257,12 @@ class TestProductModel(unittest.TestCase):
         products = Product.all()
         self.assertEqual(len(products), 5)
 
+    def find_by_name(self):
+        products = Product.all()
+        self.assertEqual(products, [])
+        product = Product(id=None, name="Fedora", description="A red hat", price=12.50, available=True, category=Category.CLOTHS)
+        product2 = Product(id=None, name="Bluedora", description="A blue hat", price=6.00, available=False, category=Category.CLOTHS)
+        product.create()
+        product2.create()
+        find_product = Product.find_by_name("Fedora")
+        self.assertEqual(find_product[0].description, product.description)
