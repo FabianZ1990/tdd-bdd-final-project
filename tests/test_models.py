@@ -195,7 +195,7 @@ class TestProductModel(unittest.TestCase):
             "description": "A red hat",
             "price": str(7.50),
             "available": True,
-            "category": str("CLOTHS")  # convert enum to string
+            "category": str("CLOTHS")
         }
         product = Product()
         product.deserialize(productDict)
@@ -203,3 +203,32 @@ class TestProductModel(unittest.TestCase):
         products = Product.all()
         self.assertEqual(products[0].name , "Red Hat")
         self.assertEqual(products[0].category.name, productDict["category"])
+
+    def test_deserialize_available_noBool(self):
+
+        productDict =  {
+            "id": None,
+            "name": "Red Hat",
+            "description": "A red hat",
+            "price": str(7.50),
+            "available": 1,  ##int instead of bool
+            "category": str("CLOTHS")
+        }
+        product = Product()
+        with self.assertRaises(DataValidationError):
+            product.deserialize(productDict)
+
+    def test_deserialize_available_missing_attribute(self):
+
+        productDict =  {
+            "id": None,
+            "name": "Red Hat",
+            "description": "A red hat",
+            "price": str(7.50),
+            "available": True,  ##int instead of bool
+            "category": str("SHIT")
+        }
+        product = Product()
+        with self.assertRaises(AttributeError):
+            product.deserialize(productDict)
+
