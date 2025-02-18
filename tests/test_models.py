@@ -185,6 +185,6 @@ class TestProductModel(unittest.TestCase):
         self.assertEqual(dict["description"], new_product.description)
         self.assertEqual(dict["price"], str(new_product.price))
         self.assertEqual(dict["available"], new_product.available)
-        self.assertEqual(dict["category"], new_product.category)
+        self.assertEqual(dict["category"], new_product.category.name)
     # ADD YOUR TEST CASES HERE
     #
