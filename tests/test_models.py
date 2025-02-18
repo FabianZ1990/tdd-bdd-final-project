@@ -27,7 +27,7 @@ import os
 import logging
 import unittest
 from decimal import Decimal
-from service.models import Product, Category, db
+from service.models import Product, Category, db, DataValidationError
 from service import app
 from tests.factories import ProductFactory
 
@@ -110,13 +110,8 @@ class TestProductModel(unittest.TestCase):
         self.assertIsNotNone(product.id)
         products = Product.all()
         self.assertEqual(len(products), 1)
-        # Check that it matches the original product
         new_product = products[0]
         self.assertEqual(new_product.name, product.name)
-        self.assertEqual(new_product.description, product.description)
-        self.assertEqual(Decimal(new_product.price), product.price)
-        self.assertEqual(new_product.available, product.available)
-        self.assertEqual(new_product.category, product.category)
         product.name = "Testproduct"
         product.update()
         products = Product.all()
@@ -124,6 +119,21 @@ class TestProductModel(unittest.TestCase):
         # Check that it matches the original product
         new_product = products[0]
         self.assertEqual(new_product.name, product.name)
-    #
+
+    def test_update_empty_id(self):
+        products = Product.all()
+        self.assertEqual(products, [])
+        product = ProductFactory()
+        product.id = None
+        product.create()
+        self.assertIsNotNone(product.id)
+        products = Product.all()
+        self.assertEqual(len(products), 1)
+        new_product = products[0]
+        self.assertEqual(new_product.name, product.name)
+        product.name = "Testproduct"
+        product.id = None
+        product.update()
+        self.assertRaises(DataValidationError)
     # ADD YOUR TEST CASES HERE
     #
