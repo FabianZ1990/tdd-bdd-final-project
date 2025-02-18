@@ -195,7 +195,7 @@ class TestProductModel(unittest.TestCase):
             "description": "A red hat",
             "price": str(7.50),
             "available": True,
-            "category": Category.CLOTHS  # convert enum to string
+            "category": str("CLOTHS")  # convert enum to string
         }
         product = Product()
         product.deserialize(productDict)
