@@ -105,9 +105,25 @@ class TestProductModel(unittest.TestCase):
         products = Product.all()
         self.assertEqual(products, [])
         product = ProductFactory()
-        product.id = 1
+        product.id = None
         product.create()
-        self.assertEqual(product.id, 1)
+        self.assertIsNotNone(product.id)
+        products = Product.all()
+        self.assertEqual(len(products), 1)
+        # Check that it matches the original product
+        new_product = products[0]
+        self.assertEqual(new_product.name, product.name)
+        self.assertEqual(new_product.description, product.description)
+        self.assertEqual(Decimal(new_product.price), product.price)
+        self.assertEqual(new_product.available, product.available)
+        self.assertEqual(new_product.category, product.category)
+        product.name = "Testproduct"
+        product.update()
+        products = Product.all()
+        self.assertEqual(len(products), 1)
+        # Check that it matches the original product
+        new_product = products[0]
+        self.assertEqual(new_product.name, product.name)
     #
     # ADD YOUR TEST CASES HERE
     #
