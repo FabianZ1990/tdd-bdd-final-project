@@ -146,5 +146,29 @@ class TestProductModel(unittest.TestCase):
         new_product.delete()
         products = Product.all()
         self.assertEqual(len(products), 0)
+
+    def test_delete_product_with_multiple(self):
+        products = Product.all()
+        self.assertEqual(products, [])
+        product = ProductFactory()
+        product.id = None
+        product.create()
+        product2 = ProductFactory()
+        product2.id = None
+        product2.create()
+        self.assertIsNotNone(product.id)
+        self.assertIsNotNone(product2.id)
+        products = Product.all()
+        self.assertEqual(len(products), 2)
+        new_product = products[0]
+        new_product2 = products[1]
+        self.assertEqual(new_product.name, product.name)
+        self.assertEqual(new_product2.name, product2.name)
+        new_product.delete()
+        products = Product.all()
+        self.assertEqual(len(products), 1)
+        self.assertEqual(products[0].name, new_product2.name())
+
+
     # ADD YOUR TEST CASES HERE
     #
