@@ -127,14 +127,24 @@ class TestProductModel(unittest.TestCase):
         product.id = None
         product.create()
         self.assertIsNotNone(product.id)
-        products = Product.all()
-        self.assertEqual(len(products), 1)
-        new_product = products[0]
-        self.assertEqual(new_product.name, product.name)
         product.name = "Testproduct"
         product.id = None
         with self.assertRaises(DataValidationError):
             product.update()
 
+    def test_delete_product(self):
+        products = Product.all()
+        self.assertEqual(products, [])
+        product = ProductFactory()
+        product.id = None
+        product.create()
+        self.assertIsNotNone(product.id)
+        products = Product.all()
+        self.assertEqual(len(products), 1)
+        new_product = products[0]
+        self.assertEqual(new_product.name, product.name)
+        new_product.delete()
+        products = Product.all()
+        self.assertEqual(len(products), 0)
     # ADD YOUR TEST CASES HERE
     #
