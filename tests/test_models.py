@@ -218,17 +218,29 @@ class TestProductModel(unittest.TestCase):
         with self.assertRaises(DataValidationError):
             product.deserialize(productDict)
 
-    def test_deserialize_available_missing_attribute(self):
+    def test_deserialize_wrong_attribute(self):
 
         productDict =  {
             "id": None,
             "name": "Red Hat",
             "description": "A red hat",
             "price": str(7.50),
-            "available": True,  ##int instead of bool
+            "available": True,
             "category": str("SHIT")
         }
         product = Product()
         with self.assertRaises(DataValidationError):
             product.deserialize(productDict)
 
+    def test_deserialize_typeerror(self):
+        productDict =  {
+            "id": None,
+            "name": 123456,
+            "description": "A red hat",
+            "price": str(7.50),
+            "available": True,
+            "category": str("CLOTHS")
+        }
+        product = Product()
+        with self.assertRaises(DataValidationError):
+            product.deserialize(productDict)
