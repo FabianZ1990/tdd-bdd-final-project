@@ -229,6 +229,6 @@ class TestProductModel(unittest.TestCase):
             "category": str("SHIT")
         }
         product = Product()
-        with self.assertRaises(AttributeError):
+        with self.assertRaises(DataValidationError):
             product.deserialize(productDict)
 
