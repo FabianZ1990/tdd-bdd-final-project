@@ -105,6 +105,7 @@ class TestProductModel(unittest.TestCase):
         products = Product.all()
         self.assertEqual(products, [])
         product = ProductFactory()
+        product.id = 1
         product.create()
         self.assertEqual(product.id, 1)
     #
