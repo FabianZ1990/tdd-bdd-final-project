@@ -186,5 +186,19 @@ class TestProductModel(unittest.TestCase):
         self.assertEqual(dict["price"], str(new_product.price))
         self.assertEqual(dict["available"], new_product.available)
         self.assertEqual(dict["category"], new_product.category.name)
-    # ADD YOUR TEST CASES HERE
-    #
+
+    def test_deserialze(self):
+
+        productDict =  {
+            "id": None,
+            "name": "Red Hat",
+            "description": "A red hat",
+            "price": str(7,50),
+            "available": True,
+            "category": Category.CLOTHS  # convert enum to string
+        }
+        product = Product()
+        product.deserialize(productDict)
+        product.create()
+        products = Product.all()
+        self.assertEqual(products[0].id , 1)
