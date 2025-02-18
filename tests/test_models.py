@@ -201,4 +201,5 @@ class TestProductModel(unittest.TestCase):
         product.deserialize(productDict)
         product.create()
         products = Product.all()
-        self.assertEqual(products[0].id , 1)
+        self.assertEqual(products[0].name , "Red Hat")
+        self.assertEqual(products[0].category.name, Category.CLOTHS)
