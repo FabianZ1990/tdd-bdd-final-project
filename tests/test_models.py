@@ -167,7 +167,7 @@ class TestProductModel(unittest.TestCase):
         new_product.delete()
         products = Product.all()
         self.assertEqual(len(products), 1)
-        self.assertEqual(products[0].name, new_product2.name())
+        self.assertEqual(products[0].name, new_product2.name)
 
 
     # ADD YOUR TEST CASES HERE
