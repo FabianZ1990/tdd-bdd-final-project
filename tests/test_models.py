@@ -264,5 +264,7 @@ class TestProductModel(unittest.TestCase):
         product2 = Product(id=None, name="Bluedora", description="A blue hat", price=6.00, available=False, category=Category.CLOTHS)
         product.create()
         product2.create()
+        self.assertEqual(len(products), 2)
         find_product = Product.find_by_name("Fedora")
+
         self.assertEqual(find_product[0].description, product.description)
