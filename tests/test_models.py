@@ -235,9 +235,8 @@ class TestProductModel(unittest.TestCase):
     def test_deserialize_typeerror(self):
         productDict =  {
             "id": None,
-            "name": 123456,
+            "name": "Red Hat",
             "description": "A red hat",
-            "price": str(7.50),
             "available": True,
             "category": str("CLOTHS")
         }
