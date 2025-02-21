@@ -266,5 +266,59 @@ class TestProductModel(unittest.TestCase):
         product2.create()
         self.assertEqual(len(Product.all()), 2)
         find_product = Product.find_by_name("Fedora")
-
         self.assertEqual(find_product[0].description, product.description)
+        self.assertEqual(find_product[0].price, product.price)
+
+    def test_find_by_price(self):
+        products = Product.all()
+        self.assertEqual(products, [])
+        product = Product(id=None, name="Fedora", description="A red hat", price=12.50, available=False,
+                          category=Category.CLOTHS)
+        product2 = Product(id=None, name="Bluedora", description="A blue hat", price=6.00, available=True,
+                           category=Category.CLOTHS)
+        product3 = Product(id=None, name="Greendora", description="A green hat", price=6.00, available=True,
+                           category=Category.CLOTHS)
+        product.create()
+        product2.create()
+        product3.create()
+        self.assertEqual(len(Product.all()), 3)
+        find_product = Product.find_by_price(6.00)
+        self.assertEqual(len(find_product), 2)
+        self.assertEqual(find_product[0].price, 6.00)
+        self.assertEqual(find_product[0].price, find_product[1].price)
+
+    def test_find_by_availability(self):
+        products = Product.all()
+        self.assertEqual(products, [])
+        product = Product(id=None, name="Fedora", description="A red hat", price=12.50, available=False,
+                          category=Category.CLOTHS)
+        product2 = Product(id=None, name="Bluedora", description="A blue hat", price=6.00, available=True,
+                           category=Category.CLOTHS)
+        product3 = Product(id=None, name="Greendora", description="A green hat", price=6.00, available=True,
+                           category=Category.CLOTHS)
+        product.create()
+        product2.create()
+        product3.create()
+        self.assertEqual(len(Product.all()), 3)
+        find_product = Product.find_by_availability(True)
+        self.assertEqual(len(find_product), 2)
+        self.assertEqual(find_product[0].availability, True)
+        self.assertEqual(find_product[0].availability, find_product[1].availability)
+
+    def test_find_by_category(self):
+        products = Product.all()
+        self.assertEqual(products, [])
+        product = Product(id=None, name="Fedora", description="A red hat", price=12.50, available=False,
+                          category=Category.CLOTHS)
+        product2 = Product(id=None, name="Bluedora", description="A blue hat", price=6.00, available=True,
+                           category=Category.TOOLS)
+        product3 = Product(id=None, name="Greendora", description="A green hat", price=6.00, available=True,
+                           category=Category.CLOTHS)
+        product.create()
+        product2.create()
+        product3.create()
+        self.assertEqual(len(Product.all()), 3)
+        find_product = Product.find_by_category(Category.CLOTHS)
+        self.assertEqual(len(find_product), 2)
+        self.assertEqual(find_product[0].category, Category.CLOTHS)
+        self.assertEqual(find_product[0].category, find_product[1].category)
