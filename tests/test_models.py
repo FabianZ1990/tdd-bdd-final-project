@@ -328,18 +328,13 @@ class TestProductModel(unittest.TestCase):
         products = Product.all()
         self.assertEqual(products, [])
         product = Product(id=None, name="Fedora", description="A red hat", price=12.50, available=False,
-                              category=Category.CLOTHS)
+                          category=Category.CLOTHS)
         product2 = Product(id=None, name="Bluedora", description="A blue hat", price=6.00, available=True,
-                               category=Category.CLOTHS)
-        product3 = Product(id=None, name="Greendora", description="A green hat", price=6.00, available=True,
-                               category=Category.CLOTHS)
+                           category=Category.CLOTHS)
         product.create()
         product2.create()
-        product3.create()
-
-        self.assertEqual(len(Product.all()), 3)
+        self.assertEqual(len(Product.all()), 2)
         all_products = Product.all()
         id_to_find = all_products[0].id
-        find_product = list(Product.find(id_to_find))
+        find_product = Product.find(id_to_find)
         self.assertEqual(find_product.name, all_products[0].name)
-
