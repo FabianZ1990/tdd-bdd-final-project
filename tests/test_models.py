@@ -213,7 +213,7 @@ class TestProductModel(unittest.TestCase):
             "name": "Red Hat",
             "description": "A red hat",
             "price": str(7.50),
-            "available": 1,  #int instead of bool
+            "available": 1,
             "category": str("CLOTHS")
         }
         product = Product()
@@ -259,8 +259,10 @@ class TestProductModel(unittest.TestCase):
     def test_find_by_name(self):
         products = Product.all()
         self.assertEqual(products, [])
-        product = Product(id=None, name="Fedora", description="A red hat", price=12.50, available=True, category=Category.CLOTHS)
-        product2 = Product(id=None, name="Bluedora", description="A blue hat", price=6.00, available=False, category=Category.CLOTHS)
+        product = Product(id=None, name="Fedora", description="A red hat", price=12.50, available=True,
+                          category=Category.CLOTHS)
+        product2 = Product(id=None, name="Bluedora", description="A blue hat", price=6.00, available=False,
+                           category=Category.CLOTHS)
         product.create()
         product2.create()
         self.assertEqual(len(Product.all()), 2)
