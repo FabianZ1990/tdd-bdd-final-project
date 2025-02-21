@@ -28,7 +28,6 @@ import logging
 import unittest
 from decimal import Decimal
 
-from six import assertCountEqual
 
 from service.models import Product, Category, db, DataValidationError
 from service import app
@@ -192,7 +191,7 @@ class TestProductModel(unittest.TestCase):
 
     def test_deserialze(self):
 
-        productDict =  {
+        productDict = {
             "id": None,
             "name": "Red Hat",
             "description": "A red hat",
@@ -204,17 +203,17 @@ class TestProductModel(unittest.TestCase):
         product.deserialize(productDict)
         product.create()
         products = Product.all()
-        self.assertEqual(products[0].name , "Red Hat")
+        self.assertEqual(products[0].name, "Red Hat")
         self.assertEqual(products[0].category.name, productDict["category"])
 
     def test_deserialize_available_noBool(self):
 
-        productDict =  {
+        productDict = {
             "id": None,
             "name": "Red Hat",
             "description": "A red hat",
             "price": str(7.50),
-            "available": 1,  ##int instead of bool
+            "available": 1,  #int instead of bool
             "category": str("CLOTHS")
         }
         product = Product()
@@ -223,7 +222,7 @@ class TestProductModel(unittest.TestCase):
 
     def test_deserialize_wrong_attribute(self):
 
-        productDict =  {
+        productDict = {
             "id": None,
             "name": "Red Hat",
             "description": "A red hat",
