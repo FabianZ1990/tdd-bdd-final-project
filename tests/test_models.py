@@ -282,7 +282,7 @@ class TestProductModel(unittest.TestCase):
         product2.create()
         product3.create()
         self.assertEqual(len(Product.all()), 3)
-        find_product = list(Product.find_by_price(6.00))
+        find_product = list(Product.find_by_price("6.00"))
         self.assertEqual(len(find_product), 2)
         self.assertEqual(find_product[0].price, 6.00)
         self.assertEqual(find_product[0].price, find_product[1].price)
@@ -302,8 +302,8 @@ class TestProductModel(unittest.TestCase):
         self.assertEqual(len(Product.all()), 3)
         find_product = list(Product.find_by_availability(True))
         self.assertEqual(len(find_product), 2)
-        self.assertEqual(find_product[0].availability, True)
-        self.assertEqual(find_product[0].availability, find_product[1].availability)
+        self.assertEqual(find_product[0].available, True)
+        self.assertEqual(find_product[0].available, find_product[1].available)
 
     def test_find_by_category(self):
         products = Product.all()
