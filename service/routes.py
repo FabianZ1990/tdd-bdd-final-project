@@ -106,6 +106,17 @@ def create_products():
 # R E A D   A   P R O D U C T
 ######################################################################
 
+@app.route("/products/<product_id>", methods=["GET"])
+def get_products(product_id):
+    product_id = request.args.get('id')
+    product = Product().find(int(product_id))
+    if product:
+        response = product.serialize()
+        return response, status.HTTP_200_OK
+    else:
+        return status.HTTP_404_NOT_FOUND
+
+
 #
 # PLACE YOUR CODE HERE TO READ A PRODUCT
 #
