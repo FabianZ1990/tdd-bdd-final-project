@@ -133,7 +133,7 @@ def update_product(product_id):
         product.update()
         message = product.serialize()
         location_url = url_for("get_products", product_id=product.id, _external=True)
-        return jsonify(message), status.HTTP_201_CREATED, {"Location": location_url}
+        return jsonify(message), status.HTTP_200_OK, {"Location": location_url}
     else:
         abort(status.HTTP_404_NOT_FOUND)
 
