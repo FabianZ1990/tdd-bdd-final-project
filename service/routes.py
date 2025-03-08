@@ -147,7 +147,7 @@ def update_product(product_id):
 def delete_product(product_id):
     product = Product().find(int(product_id))
     if product:
-        response = product.delete()
-        return response, status.HTTP_204_NO_CONTENT
+        product.delete()
+        return "", status.HTTP_204_NO_CONTENT
     else:
         return status.HTTP_404_NOT_FOUND
