@@ -106,9 +106,8 @@ def create_products():
 # R E A D   A   P R O D U C T
 ######################################################################
 
-@app.route("/products/<product_id>", methods=["GET"])
+@app.route("/products/<int:product_id>", methods=["GET"])
 def get_products(product_id):
-    product_id = request.args.get('product_id')
     product = Product().find(int(product_id))
     if product:
         response = product.serialize()
