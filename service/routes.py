@@ -108,7 +108,7 @@ def create_products():
 
 @app.route("/products/<product_id>", methods=["GET"])
 def get_products(product_id):
-    product_id = request.args.get('id')
+    product_id = request.args.get('product_id')
     product = Product().find(int(product_id))
     if product:
         response = product.serialize()
