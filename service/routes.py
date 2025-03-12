@@ -99,13 +99,13 @@ def create_products():
 ######################################################################
 
 @app.route("/products", methods=["GET"])
-def get_all_products():
+def list_products():
     products = Product().all()
-    if products:
-        response = [p.serialize() for p in products]
-        return response, status.HTTP_200_OK
-    else:
-        return status.HTTP_404_NOT_FOUND
+
+    response = [p.serialize() for p in products]
+    app.logger.info("[%s] Products returned", len(products))
+    return response, status.HTTP_200_OK
+
 ######################################################################
 # R E A D   A   P R O D U C T
 ######################################################################
