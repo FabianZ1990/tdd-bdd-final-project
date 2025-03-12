@@ -145,9 +145,9 @@ def update_product(product_id):
 
 @app.route("/products/<int:product_id>", methods=["DELETE"])
 def delete_products(product_id):
-    product = Product().find(product_id)
+
+    product = Product.find(product_id)
     if product:
         product.delete()
-        return "", status.HTTP_204_NO_CONTENT
-    else:
-        abort(status.HTTP_404_NOT_FOUND)
+
+    return "", status.HTTP_204_NO_CONTENT
