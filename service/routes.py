@@ -144,7 +144,7 @@ def update_product(product_id):
 ######################################################################
 
 @app.route("/products/<int:product_id>", methods=["DELETE"])
-def delete_product(product_id):
+def delete_products(product_id):
     product = Product().find(product_id)
     if product:
         product.delete()
