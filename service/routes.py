@@ -141,7 +141,14 @@ def update_product(product_id):
     else:
         abort(status.HTTP_404_NOT_FOUND)
 
-
+@app.route("/products/<string:product_name>", methods=["GET"])
+def get_products(product_name):
+    product = Product().find_by_name(product_name)
+    if product:
+        response = [p.serialize() for p in product]
+        return response, status.HTTP_200_OK
+    else:
+        return status.HTTP_404_NOT_FOUND
 
 ######################################################################
 # D E L E T E   A   P R O D U C T
