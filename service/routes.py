@@ -102,8 +102,11 @@ def create_products():
 def list_products():
     product = []
     name = request.args.get("name")
+    category = request.args.get("category")
     if name:
        product = Product.find_by_name(name)
+    elif category:
+        product = Product.find_by_category(category)
     else:
        product = Product.all()
 

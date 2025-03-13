@@ -30,7 +30,7 @@ from decimal import Decimal
 from unittest import TestCase
 from service import app
 from service.common import status
-from service.models import db, init_db, Product
+from service.models import db, init_db, Product, Category
 from tests.factories import ProductFactory
 from urllib.parse import quote_plus
 
@@ -216,6 +216,22 @@ class TestProductRoutes(TestCase):
         data = response.get_json()
         self.assertEqual(data[0]["name"], test_name)
         self.assertEqual(len(data), name_count)
+
+    def test_query_by_category(self):
+        test_products = self._create_products(5)
+
+        test_category = test_products[0].category
+        category_count = 0
+        for p in test_products:
+            if test_category == p.category:
+                category_count+=1
+        response = self.client.get(
+            BASE_URL, query_string=f"category={quote_plus(test_category)}"
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        data = response.get_json()
+        self.assertEqual(data[0]["category"], test_category)
+        self.assertEqual(len(data), category_count)
 
 
     ######################################################################
