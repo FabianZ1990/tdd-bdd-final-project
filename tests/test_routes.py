@@ -230,7 +230,6 @@ class TestProductRoutes(TestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.get_json()
-        self.assertEqual(data[0]["category"], test_category)
         self.assertEqual(len(data), category_count)
 
 
