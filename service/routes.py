@@ -100,10 +100,14 @@ def create_products():
 
 @app.route("/products", methods=["GET"])
 def list_products():
-    products = Product().all()
+    product = []
+    name = request.args.get("name")
+    if name:
+       product = Product.find_by_name(name)
+    else:
+       product = Product.all()
 
-    response = [p.serialize() for p in products]
-    app.logger.info("[%s] Products returned", len(products))
+    response = [p.serialize() for p in product]
     return response, status.HTTP_200_OK
 
 ######################################################################
@@ -141,17 +145,6 @@ def update_product(product_id):
     else:
         abort(status.HTTP_404_NOT_FOUND)
 
-@app.route("/products", methods=["GET"])
-def list_products():
-    product = []
-    name = request.args.get("name")
-    if name:
-       product = Product.find_by_name(name)
-    else:
-       product = Product.all()
-
-    response = [p.serialize() for p in product]
-    return response, status.HTTP_200_OK
 
 ######################################################################
 # D E L E T E   A   P R O D U C T
