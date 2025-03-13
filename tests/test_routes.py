@@ -210,7 +210,7 @@ class TestProductRoutes(TestCase):
             if test_name == p.name:
                 name_count+=1
         response = self.client.get(
-            BASE_URL, arg=f"name={quote_plus(test_name)}"
+            BASE_URL, query_string=f"name={quote_plus(test_name)}"
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.get_json()
