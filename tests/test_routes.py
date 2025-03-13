@@ -235,13 +235,13 @@ class TestProductRoutes(TestCase):
     def test_query_by_availability(self):
         test_products = self._create_products(5)
 
-        test_av = test_products[0].availability
+        test_av = test_products[0].available
         av_count = 0
         for p in test_products:
-            if test_av == p.availability:
+            if test_av == p.available:
                 av_count+=1
         response = self.client.get(
-            BASE_URL, query_string=f"availability={test_av.availability}"
+            BASE_URL, query_string=f"available={test_av.available}"
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.get_json()
