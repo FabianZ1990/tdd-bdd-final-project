@@ -205,7 +205,7 @@ class TestProductRoutes(TestCase):
     def test_query_by_name(self):
         test_products = self._create_products(5)
         test_name = test_products[0].name
-        name_count = 1
+        name_count = 0
         for p in test_products:
             if test_name == p.name:
                 name_count+=1
