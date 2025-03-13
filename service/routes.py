@@ -142,7 +142,7 @@ def update_product(product_id):
         abort(status.HTTP_404_NOT_FOUND)
 
 @app.route("/products/<string:product_name>", methods=["GET"])
-def list_products(product_name):
+def list_products_by_name(product_name):
     product = Product().find_by_name(product_name)
     if product:
         response = [p.serialize() for p in product if p.name == product_name]
