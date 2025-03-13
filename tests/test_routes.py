@@ -196,7 +196,7 @@ class TestProductRoutes(TestCase):
 
     def test_list_products(self):
         self._create_products(2)
-        response = self.client.get(f"{BASE_URL}/")
+        response = self.client.get(f"{BASE_URL}")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.get_json()
         self.assertEqual(len(data), 2)
