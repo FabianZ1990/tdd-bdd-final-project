@@ -241,7 +241,7 @@ class TestProductRoutes(TestCase):
             if test_av == p.available:
                 av_count+=1
         response = self.client.get(
-            BASE_URL, query_string=f"available={test_av.available}"
+            BASE_URL, query_string=f"available={test_av}"
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.get_json()
