@@ -103,11 +103,18 @@ def list_products():
     product = []
     name = request.args.get("name")
     category = request.args.get("category")
+    availability = request.args.get("availability")
     if name:
        product = Product.find_by_name(name)
     elif category:
         category_value = getattr(Category, category.upper())
         product = Product.find_by_category(category_value)
+    elif availability:
+        if availability.upper() == "TRUE":
+            av = True
+        else:
+            av = False
+        product = Product.find_by_availability(av)
     else:
        product = Product.all()
 
