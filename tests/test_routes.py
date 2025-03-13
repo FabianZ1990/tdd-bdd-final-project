@@ -226,7 +226,7 @@ class TestProductRoutes(TestCase):
             if test_category == p.category:
                 category_count+=1
         response = self.client.get(
-            BASE_URL, query_string=f"category={quote_plus(test_category)}"
+            BASE_URL, query_string=f"category={test_category.name}"
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.get_json()
