@@ -22,6 +22,8 @@ Steps file for products.feature
 For information on Waiting until elements are present in the HTML see:
     https://selenium-python.readthedocs.io/waits.html
 """
+import json
+
 import requests
 from behave import given
 
@@ -47,6 +49,6 @@ def step_impl(context):
     # load the database with new products
     #
     for row in context.table:
-        #
-        # ADD YOUR CODE HERE TO CREATE PRODUCTS VIA THE REST API
-        #
+        payload = json.dumps(row, indent = 4)
+        response = requests.post(f"{context.base_url}/products", json=payload)
+        assert response.status_code == 201
